@@ -1,17 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
-import {
-  MapPin,
-  Calendar,
-  Wallet,
-  Sparkles,
-  Users,
-} from "lucide-react";
+import { MapPin, Calendar, Wallet, Sparkles, Users } from "lucide-react";
 import TripHero from "./trip/tripHero";
 import TripSummary from "./trip/TripSummary";
 import DayCard from "./trip/DayCard";
 
 import Loading from "../components/Loading";
+import toast from "react-hot-toast";
 
 function Planner() {
   const [loading, setLoading] = useState(false);
@@ -36,8 +31,9 @@ function Planner() {
       setLoading(true);
 
       const res = await axios.post(
-        "http://localhost:4000/trips/create",
-        formData
+        `${import.meta.env.VITE_API_URL}trips/create`,
+        formData,
+        { withCredentials: true },
       );
 
       setTrip(res.data);
@@ -50,55 +46,34 @@ function Planner() {
   };
 
   const handleSave = async () => {
-  try {
-    await axios.post(
-      "http://localhost:4000/trips/save",
-      trip
-    );
+    try {
+      await axios.post(`${import.meta.env.VITE_API_URL}/trips/save`, trip, {
+        withCredentials: true,
+      });
 
-    alert("Trip saved successfully");
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const handleDownloadPdf = () => {
-  console.log("Download PDF");
-};
-
-  // const handleSave = async () => {
-  //   try {
-  //     await axios.post(
-  //       "http://localhost:4000/trips/save",
-  //       trip
-  //     );
-
-  //     alert("Trip Saved Successfully");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+      toast.success("Trip saved successfully");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
 
   return (
     <div className="min-h-screen bg-slate-950 text-white px-6 py-32">
       <div className="max-w-6xl mx-auto">
-
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold">
-            Plan Your Dream Trip
-          </h1>
+          <h1 className="text-5xl font-bold">Plan Your Dream Trip</h1>
 
           <p className="mt-4 text-slate-400 text-lg">
-            Let AI create a personalized itinerary,
-            budget plan and travel guide.
+            Let AI create a personalized itinerary, budget plan and travel
+            guide.
           </p>
         </div>
 
         {/* Form */}
         <div className="bg-slate-900/70 backdrop-blur-xl border border-slate-800 rounded-3xl p-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
-
             {/* Destination */}
             <div className="flex items-center gap-3 bg-slate-800 rounded-xl px-4 py-3">
               <MapPin className="text-sky-400" />
@@ -110,6 +85,7 @@ const handleDownloadPdf = () => {
                 value={formData.destination}
                 onChange={handleChange}
                 className="bg-transparent outline-none w-full"
+                required
               />
             </div>
 
@@ -124,6 +100,7 @@ const handleDownloadPdf = () => {
                 value={formData.days}
                 onChange={handleChange}
                 className="bg-transparent outline-none w-full"
+                required
               />
             </div>
 
@@ -138,6 +115,7 @@ const handleDownloadPdf = () => {
                 value={formData.budget}
                 onChange={handleChange}
                 className="bg-transparent outline-none w-full"
+                required
               />
             </div>
 
@@ -153,6 +131,7 @@ const handleDownloadPdf = () => {
                 value={formData.persons}
                 onChange={handleChange}
                 className="bg-transparent outline-none w-full"
+                required
               />
             </div>
 
@@ -160,7 +139,7 @@ const handleDownloadPdf = () => {
             <button
               onClick={handleGenerate}
               disabled={loading}
-              className="bg-sky-500 hover:bg-sky-600 disabled:bg-slate-700 rounded-xl font-semibold flex items-center justify-center gap-2"
+              className="bg-sky-500 hover:bg-sky-600 disabled:bg-slate-700 rounded-xl py-3 font-semibold flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>
@@ -182,32 +161,25 @@ const handleDownloadPdf = () => {
 
         {/* Result */}
         {trip && (
-  <div className="mt-10 space-y-8">
-    <TripHero trip={trip} />
+          <div className="mt-10 space-y-8">
+            <TripHero trip={trip} />
 
-    <TripSummary trip={trip} />
+            <TripSummary trip={trip} />
 
-    {trip.days.map((day) => (
-      <DayCard key={day.day} day={day} />
-    ))}
+            {trip.days.map((day) => (
+              <DayCard key={day.day} day={day} />
+            ))}
 
-    <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-  <button
-    onClick={handleSave}
-    className="px-8 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 font-semibold transition"
-  >
-    💾 Save Trip
-  </button>
-
-  <button
-    onClick={handleDownloadPdf}
-    className="px-8 py-3 rounded-xl bg-sky-500 hover:bg-sky-600 font-semibold transition"
-  >
-    📄 Download PDF
-  </button>
-</div>
-  </div>
-)}
+            <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+              <button
+                onClick={handleSave}
+                className="px-8 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 font-semibold transition"
+              >
+                💾 Save Trip
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

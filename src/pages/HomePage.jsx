@@ -1,6 +1,22 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const HomePage = () => {
+  const [featuredTrips, setFeaturedTrips] = useState([]);
+
+  useEffect(() => {
+    const fetchTrips = async () => {
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/featured/trip`,
+      );
+
+      setFeaturedTrips(res.data);
+    };
+
+    fetchTrips();
+  }, []);
+
   return (
     <div className="min-h-screen bg-slate-950 text-white">
       {/* Hero Section */}
@@ -24,25 +40,22 @@ const HomePage = () => {
             </p>
           </div>
         </div>
-        
-        
       </section>
       <div className=" flex flex-col sm:flex-row items-center justify-center gap-4">
+        <Link
+          to="/planner"
+          className="px-8 py-3 bg-sky-500 hover:bg-sky-600 rounded-xl font-semibold text-white transition"
+        >
+          ✈️ Plan New Trip
+        </Link>
 
-          <Link
-            to="/planner"
-            className="px-8 py-3 bg-sky-500 hover:bg-sky-600 rounded-xl font-semibold text-white transition"
-          >
-            ✈️ Plan New Trip
-          </Link>
-
-          <Link
-            to="/savedtrips"
-            className="px-8 py-3 bg-white/10 backdrop-blur border border-white/20 hover:bg-white/20 rounded-xl font-semibold text-white transition"
-          >
-            ❤️ Saved Trips
-          </Link>
-        </div>
+        <Link
+          to="/savedtrips"
+          className="px-8 py-3 bg-white/10 backdrop-blur border border-white/20 hover:bg-white/20 rounded-xl font-semibold text-white transition"
+        >
+          ❤️ Saved Trips
+        </Link>
+      </div>
 
       {/* Popular Destinations */}
       <section className="max-w-7xl mx-auto px-6 py-20">
@@ -50,14 +63,29 @@ const HomePage = () => {
           Popular Destinations
         </h2>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {["Tokyo", "Paris", "Dubai", "Rome"].map((city) => (
-            <div
-              key={city}
-              className="bg-slate-900 border border-slate-800 rounded-2xl p-5 text-center hover:border-sky-500 transition cursor-pointer"
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {featuredTrips.map((trip) => (
+            <Link
+              key={trip.id}
+              to={`/featured/trip/${trip.id}`}
+              className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 hover:border-sky-500 transition"
             >
-              {city}
-            </div>
+              <img
+                src={trip.imageUrl}
+                alt={trip.destination}
+                className="h-48 w-full object-cover"
+              />
+
+              <div className="p-4">
+                <h3 className="text-lg font-bold">{trip.destination}</h3>
+
+                <p className="text-slate-400">{trip.country}</p>
+
+                <p className="text-sm mt-2">
+                  {trip.duration_days} Days • {trip.person_count} Persons
+                </p>
+              </div>
+            </Link>
           ))}
         </div>
       </section>

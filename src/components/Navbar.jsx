@@ -9,10 +9,37 @@ import {
   SheetDescription,
 } from "@/components/ui/sheet";
 import { useState } from "react";
+import { User } from "lucide-react";
+import axios from "axios";
+import toast from "react-hot-toast";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Navbar = () => {
-    const [open, setOpen] = useState(false);
-    
+  const [open, setOpen] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_API_URL}/auth/logout`,
+        {},
+        { withCredentials: true },
+      );
+     
+      toast.success("Logged out successfully");
+
+      setTimeout(() => {
+      window.location.href = "/login";
+      }, 1000); 
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <header className="fixed top-0 left-0 w-full z-50">
       <nav className="max-w-7xl mx-auto mt-4 px-4 md:px-6">
@@ -35,7 +62,31 @@ const Navbar = () => {
             <Link to="/planner">Trip Planner</Link>
             <Link to="/savedtrips">Saved Trips</Link>
 
-            
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="h-10 w-10 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition cursor-pointer">
+                  <User size={18} />
+                </button>
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent
+                align="end"
+                className="bg-slate-900 border-slate-800 text-white"
+              >
+                <DropdownMenuItem asChild>
+                  <Link to="/profile" className="cursor-pointer">
+                    👤 Profile
+                  </Link>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem
+                  onClick={handleLogout}
+                  className="cursor-pointer text-red-400 focus:text-red-400"
+                >
+                  🚪 Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           {/* Mobile Menu */}
@@ -101,6 +152,20 @@ const Navbar = () => {
                   >
                     ❤️ Saved Trips
                   </Link>
+                  <Link
+                    to="/profile"
+                    onClick={() => setOpen(false)}
+                    className="px-4 py-3 rounded-xl hover:bg-slate-800 transition"
+                  >
+                    👤 Profile
+                  </Link>
+
+                  <button
+                    onClick={handleLogout}
+                    className="px-4 py-3 rounded-xl text-left text-red-400 hover:bg-slate-800 transition"
+                  >
+                    🚪 Logout
+                  </button>
                 </div>
               </SheetContent>
             </Sheet>

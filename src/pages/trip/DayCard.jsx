@@ -1,25 +1,17 @@
 function DayCard({ day }) {
   return (
-    <div className="bg-slate-900 rounded-3xl p-6">
+    <div className=" bg-slate-900/80 backdrop-blur-xl border border-slate-800 rounded-3xl p-8">
       <div className="flex justify-between mb-6">
         <div>
-          <h3 className="text-2xl font-bold">
-            Day {day.day}
-          </h3>
+          <h3 className="text-2xl font-bold">Day {day.day}</h3>
 
-          <p className="text-sky-400">
-            {day.title}
-          </p>
+          <p className="text-sky-400">{day.title}</p>
         </div>
 
         <div className="text-right">
-          <p className="text-slate-400">
-            Estimated Cost
-          </p>
+          <p className="text-slate-400">Estimated Cost</p>
 
-          <p className="font-bold">
-            ₹{day.estimated_day_cost}
-          </p>
+          <p className="font-bold">₹{day.estimated_day_cost}</p>
         </div>
       </div>
 
@@ -27,27 +19,28 @@ function DayCard({ day }) {
         {day.activities.map((activity, index) => (
           <div
             key={index}
-            className="border-l-2 border-sky-500 pl-4"
+            className="relative pl-8 pb-6 border-l-2 border-sky-500"
           >
-            <p className="text-sky-400 capitalize">
+            <div className="absolute -left-2.25  w-4 h-4 rounded-full bg-sky-500" />
+
+            <p className="text-sky-400 capitalize font-medium">
               {activity.time}
             </p>
 
-            <h4 className="font-semibold">
-              {activity.activity}
-            </h4>
+            <h4 className="font-semibold text-lg mt-1">{activity.activity}</h4>
 
-            <p className="text-slate-400">
-              {activity.description}
+            <p className="text-slate-400 mt-2">{activity.description}</p>
+
+            <p className="text-sm text-slate-500 mt-2">
+              📍 {activity.location}
             </p>
 
-            <p className="text-sm text-slate-500">
-              📍 {activity.location}
+            <p className="font-semibold mt-2 text-emerald-400">
+              ₹{activity.estimated_cost}
             </p>
           </div>
         ))}
       </div>
-      
     </div>
   );
 }

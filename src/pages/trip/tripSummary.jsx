@@ -2,7 +2,7 @@ function TripSummary({ trip }) {
   return (
     <div className="space-y-6">
       
-      <div className="grid md:grid-cols-4 gap-4">
+      <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 hover:border-sky-500 transition">
         <div className="bg-slate-900 rounded-2xl p-5">
           <p className="text-slate-400">Duration</p>
           <h3 className="text-xl font-bold">
