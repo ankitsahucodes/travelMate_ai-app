@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import Google from "@/assets/google.svg?react";
 import { useState } from "react";
+import planetLogo from "../assets/planet.png";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -26,7 +27,7 @@ const Login = () => {
       <Card className="w-full max-w-112.5 mx-auto md:p-10 p-5 rounded-4xl bg-slate-900 border-slate-800 text-white">
         <CardHeader className="flex flex-col items-center">
           <img
-            src="./src/assets/planet.png"
+            src={planetLogo}
             alt="Logo"
             className="w-20 h-20 mb-4"
           />
