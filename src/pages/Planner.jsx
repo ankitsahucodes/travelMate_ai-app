@@ -30,7 +30,7 @@ function Planner() {
       setLoading(true);
 
       const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}trips/create`,
+        `${import.meta.env.VITE_API_URL}/trips/create`,
         formData,
         { withCredentials: true },
       );
