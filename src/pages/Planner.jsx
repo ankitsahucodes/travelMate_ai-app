@@ -38,7 +38,7 @@ function Planner() {
       setTrip(res.data);
     } catch (error) {
       console.log(error);
-      alert("Failed to generate trip");
+      toast.error("Failed to generate trip");
     } finally {
       setLoading(false);
     }
