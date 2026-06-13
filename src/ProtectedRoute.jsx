@@ -16,6 +16,7 @@ const ProtectedRoute = ({ children }) => {
       } catch (error) {
         setIsAuthenticated(false);
         toast.error("Please log in to access this page");
+        console.log(error);
       }
     };
 

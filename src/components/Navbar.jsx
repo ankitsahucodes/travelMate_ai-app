@@ -29,12 +29,12 @@ const Navbar = () => {
         {},
         { withCredentials: true },
       );
-     
+
       toast.success("Logged out successfully");
 
       setTimeout(() => {
-      window.location.href = "/login";
-      }, 1000); 
+        window.location.href = "/login";
+      }, 1000);
     } catch (error) {
       console.error(error);
     }

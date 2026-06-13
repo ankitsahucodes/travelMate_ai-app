@@ -34,7 +34,6 @@ function Profile() {
   return (
     <div className="min-h-screen bg-slate-950 text-white py-28 px-6">
       <div className="max-w-5xl mx-auto">
-        {/* Header */}
         <div className="bg-slate-900 border border-slate-800 rounded-3xl p-8">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <img

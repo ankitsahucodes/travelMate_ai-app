@@ -4,7 +4,6 @@ import { MapPin, Calendar, Wallet, Sparkles, Users } from "lucide-react";
 import TripHero from "./trip/tripHero";
 import TripSummary from "./trip/TripSummary";
 import DayCard from "./trip/DayCard";
-
 import Loading from "../components/Loading";
 import toast from "react-hot-toast";
 
@@ -56,12 +55,10 @@ function Planner() {
       console.log(error);
     }
   };
-  
 
   return (
     <div className="min-h-screen bg-slate-950 text-white px-6 py-32">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold">Plan Your Dream Trip</h1>
 
@@ -74,7 +71,6 @@ function Planner() {
         {/* Form */}
         <div className="bg-slate-900/70 backdrop-blur-xl border border-slate-800 rounded-3xl p-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
-            {/* Destination */}
             <div className="flex items-center gap-3 bg-slate-800 rounded-xl px-4 py-3">
               <MapPin className="text-sky-400" />
 
@@ -89,7 +85,6 @@ function Planner() {
               />
             </div>
 
-            {/* Days */}
             <div className="flex items-center gap-3 bg-slate-800 rounded-xl px-4 py-3">
               <Calendar className="text-sky-400" />
 
@@ -104,7 +99,6 @@ function Planner() {
               />
             </div>
 
-            {/* Budget */}
             <div className="flex items-center gap-3 bg-slate-800 rounded-xl px-4 py-3">
               <Wallet className="text-sky-400" />
 
@@ -119,7 +113,6 @@ function Planner() {
               />
             </div>
 
-            {/* Persons */}
             <div className="flex items-center gap-3 bg-slate-800 rounded-xl px-4 py-3">
               <Users className="text-sky-400" />
 
@@ -135,7 +128,6 @@ function Planner() {
               />
             </div>
 
-            {/* Generate Button */}
             <button
               onClick={handleGenerate}
               disabled={loading}
@@ -156,10 +148,8 @@ function Planner() {
           </div>
         </div>
 
-        {/* Loading */}
         {loading && <Loading />}
 
-        {/* Result */}
         {trip && (
           <div className="mt-10 space-y-8">
             <TripHero trip={trip} />
