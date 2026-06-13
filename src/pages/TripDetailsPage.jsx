@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import TripHero from "./trip/TripHero";
 import TripSummary from "./trip/TripSummary";
-import DayCard from "../pages/trip/DayCard";
+import DayCard from "./trip/DayCard";
 
 function TripDetailsPage() {
   const { id } = useParams();
