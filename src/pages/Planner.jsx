@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { MapPin, Calendar, Wallet, Sparkles, Users } from "lucide-react";
-import TripHero from "./trip/tripHero";
+import TripHero from "./trip/TripHero";
 import TripSummary from "./trip/TripSummary";
 import DayCard from "./trip/DayCard";
 import Loading from "../components/Loading";
