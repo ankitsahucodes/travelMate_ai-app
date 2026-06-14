@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import TripCard from "../pages/TripCard";
 import SavedTripsLoading from "../pages/SavedTripsLoading";
+import toast from "react-hot-toast";
 
 function SavedTrips() {
   const [loading, setLoading] = useState(true);
@@ -38,6 +39,8 @@ function SavedTrips() {
     setTrips((prev) =>
       prev.filter((trip) => trip._id !== tripId)
     );
+
+    toast.success("Trip Deleted Successfully")
   } catch (error) {
     console.log(error);
   }
