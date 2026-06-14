@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Menu } from "lucide-react";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import planetLogo from "../assets/planet.png"
 import {
   Sheet,
   SheetContent,
@@ -49,7 +50,7 @@ const Navbar = () => {
             className="flex items-center gap-2 text-xl font-bold text-white"
           >
             <img
-              src="./src/assets/planet.png"
+              src={planetLogo}
               alt="TravelMate AI"
               className="h-10 w-10"
             />
