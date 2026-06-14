@@ -31,7 +31,7 @@ function DayCard({ day }) {
 
             <p className="text-slate-400 mt-2">{activity.description}</p>
 
-            <p className="text-sm text-slate-500 mt-2">
+            <p className="text-base text-slate-500 mt-2">
               📍 {activity.location}
             </p>
 

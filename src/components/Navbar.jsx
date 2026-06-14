@@ -105,7 +105,7 @@ const Navbar = () => {
               >
                 <div className="flex items-center gap-3 mt-5 ms-5 border-b border-slate-800 pb-5">
                   <img
-                    src="./src/assets/planet.png"
+                    src={planetLogo}
                     alt="TravelMate"
                     className="h-10 w-10"
                   />

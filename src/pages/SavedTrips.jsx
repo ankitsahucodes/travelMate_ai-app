@@ -25,6 +25,24 @@ function SavedTrips() {
     fetchTrips();
   }, []);
 
+
+  const handleDelete = async (tripId) => {
+  try {
+    await axios.delete(
+      `${import.meta.env.VITE_API_URL}/trips/${tripId}`,
+      {
+        withCredentials: true,
+      }
+    );
+
+    setTrips((prev) =>
+      prev.filter((trip) => trip._id !== tripId)
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
   return (
     <div className="min-h-screen bg-slate-950 text-white px-6 py-32">
       <div className="max-w-7xl mx-auto">
@@ -49,7 +67,7 @@ function SavedTrips() {
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {trips.map((trip) => (
-              <TripCard key={trip._id} trip={trip} />
+              <TripCard key={trip._id} trip={trip} handleDelete={handleDelete} />
             ))}
           </div>
         )}
