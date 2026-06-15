@@ -25,7 +25,9 @@ function Planner() {
     });
   };
 
-  const handleGenerate = async () => {
+  const handleGenerate = async (e) => {
+    e.preventDefault();
+
     try {
       setLoading(true);
 
@@ -70,7 +72,10 @@ function Planner() {
 
         {/* Form */}
         <div className="bg-slate-900/70 backdrop-blur-xl border border-slate-800 rounded-3xl p-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
+          <form
+            onSubmit={handleGenerate}
+            className="grid md:grid-cols-2 lg:grid-cols-5 gap-4"
+          >
             <div className="flex items-center gap-3 bg-slate-800 rounded-xl px-4 py-3">
               <MapPin className="text-sky-400" />
 
@@ -91,6 +96,7 @@ function Planner() {
               <input
                 type="number"
                 name="days"
+                min="1"
                 placeholder="Days"
                 value={formData.days}
                 onChange={handleChange}
@@ -105,6 +111,7 @@ function Planner() {
               <input
                 type="number"
                 name="budget"
+                min="1"
                 placeholder="Budget ₹"
                 value={formData.budget}
                 onChange={handleChange}
@@ -129,7 +136,7 @@ function Planner() {
             </div>
 
             <button
-              onClick={handleGenerate}
+              type="submit"
               disabled={loading}
               className="bg-sky-500 hover:bg-sky-600 disabled:bg-slate-700 rounded-xl py-3 font-semibold flex items-center justify-center gap-2"
             >
@@ -145,7 +152,7 @@ function Planner() {
                 </>
               )}
             </button>
-          </div>
+          </form>
         </div>
 
         {loading && <Loading />}
